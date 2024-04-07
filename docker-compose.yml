@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app-remix:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: file:/data/db/data.db
+      SESSION_SECRET: a029aea79e590f7c65a2e3e6adf50d85
+      SENTRY_DSN: your-dsn
+    volumes:
+      - app-data:/myapp/prisma
+    command: ["node", "server-build/index.js"]
+
+volumes:
+  app-data:
